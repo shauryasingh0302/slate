@@ -4,9 +4,10 @@ import { cn } from "@/lib/utils";
 import React from "react";
 import { Logo } from "./Logo";
 import { useConvexAuth } from "convex/react";
-import { SignInButton } from "@clerk/nextjs";
+import { SignInButton, UserButton } from "@clerk/nextjs";
 import { Button } from "@/components/ui/button";
 import { Spinner } from "@/components/spinner";
+import Link from "next/link";
 
 const Navbar = () => {
     const { isAuthenticated, isLoading } = useConvexAuth();
@@ -25,6 +26,7 @@ const Navbar = () => {
                         <Spinner />
                     </div>
                 )}
+
                 {!isAuthenticated && !isLoading && (
                     <>
                         <SignInButton mode="modal">
@@ -35,6 +37,20 @@ const Navbar = () => {
                                 Get Slate Free
                             </Button>
                         </SignInButton>
+                    </>
+                )}
+
+                {isAuthenticated && !isLoading && (
+                    <>
+                        <Button
+                            className="mr-2"
+                            variant="ghost"
+                            nativeButton={false}
+                            render={<Link href="/documents" />}
+                        >
+                            Enter Slate
+                        </Button>
+                        <UserButton />
                     </>
                 )}
             </div>
