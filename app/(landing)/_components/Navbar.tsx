@@ -6,6 +6,7 @@ import { Logo } from "./Logo";
 import { useConvexAuth } from "convex/react";
 import { SignInButton } from "@clerk/nextjs";
 import { Button } from "@/components/ui/button";
+import { Spinner } from "@/components/spinner";
 
 const Navbar = () => {
     const { isAuthenticated, isLoading } = useConvexAuth();
@@ -19,14 +20,20 @@ const Navbar = () => {
         >
             <Logo />
             <div className="md:ml-auto md:justify-end justify-between w-full flex items-center gap-x-2">
-                {isLoading && <p>Loading...</p>}
+                {isLoading && (
+                    <div className="mr-13">
+                        <Spinner />
+                    </div>
+                )}
                 {!isAuthenticated && !isLoading && (
                     <>
                         <SignInButton mode="modal">
                             <Button variant={"ghost"}>Login</Button>
                         </SignInButton>
                         <SignInButton mode="modal">
-                            <Button className={'rounded-sm'}>Get Slate Free</Button>
+                            <Button className={"rounded-sm"}>
+                                Get Slate Free
+                            </Button>
                         </SignInButton>
                     </>
                 )}
