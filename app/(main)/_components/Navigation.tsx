@@ -3,7 +3,7 @@
 import { cn } from "@/lib/utils";
 import { ChevronsLeft, MenuIcon } from "lucide-react";
 import { usePathname } from "next/navigation";
-import { ElementRef, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useMediaQuery } from "usehooks-ts";
 
 export const Navigation = () => {
@@ -11,10 +11,18 @@ export const Navigation = () => {
     const isMobile = useMediaQuery("(max-width: 768px)");
 
     const isResizingRef = useRef(false);
-    const sidebarRef = useRef<ElementRef<"aside">>(null);
-    const navbarRef = useRef<ElementRef<"div">>(null);
+    const sidebarRef = useRef<HTMLElement>(null);
+    const navbarRef = useRef<HTMLDivElement>(null);
     const [isResetting, setIsResetting] = useState(false);
     const [isCollapsed, setIsCollapsed] = useState(isMobile);
+
+    useEffect(() => {
+        if (isMobile) {
+            collapse();
+        } else {
+            resetWidth();
+        }
+    },[isMobile]);
 
     const handleMouseDown = (
         event: React.MouseEvent<HTMLDivElement, MouseEvent>,
@@ -39,7 +47,7 @@ export const Navigation = () => {
             navbarRef.current.style.setProperty("left", `${newWidth}px`);
             navbarRef.current.style.setProperty(
                 "width",
-                `calc(100%-${newWidth}px)`,
+                `calc(100% - ${newWidth}px)`,
             );
         }
     };
@@ -68,6 +76,18 @@ export const Navigation = () => {
         }
     };
 
+    const collapse = () => {
+        if (sidebarRef.current && navbarRef.current) {
+            setIsCollapsed(true);
+            setIsResetting(true);
+
+            sidebarRef.current.style.width = "0";
+            navbarRef.current.style.setProperty("width", "100%");
+            navbarRef.current.style.setProperty("left", "0px");
+            setTimeout(() => setIsResetting(false), 300);
+        }
+    };
+
     return (
         <>
             <aside
@@ -84,6 +104,7 @@ export const Navigation = () => {
                         "h-6 w-6 text-muted-foreground rounded-sm hover:bg-neutral-300 dark:hover:bg-neutral-600 absolute top-3 right-2 opacity-0 group-hover/sidebar:opacity-100 transition",
                         isMobile && "opacity-100",
                     )}
+                    onClick={collapse}
                 >
                     <ChevronsLeft className="h-6 w-6" />
                 </div>
@@ -113,6 +134,7 @@ export const Navigation = () => {
                         <MenuIcon
                             role="button"
                             className="h-6 w-6 text-muted-foreground"
+                            onClick={resetWidth}
                         />
                     )}
                 </nav>
