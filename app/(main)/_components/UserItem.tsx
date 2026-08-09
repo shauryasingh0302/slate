@@ -10,7 +10,7 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { useUser } from "@clerk/nextjs";
+import { useUser, SignOutButton } from "@clerk/nextjs";
 
 const UserItem = () => {
     const { user } = useUser();
@@ -36,10 +36,21 @@ const UserItem = () => {
                 </p>
                 <div className="flex items-center gap-x-2">
                     <div className="rounded-md bg-secondary p-1">
-                        
+                        <Avatar className="h-8 w-8">
+                            <AvatarImage src={user?.imageUrl}/>
+                        </Avatar>
+                    </div>
+                    <div className="space-y-1">
+                        <p className="text-sm line-clamp-1">
+                            {user?.fullName}&apos;s Slate
+                        </p>
                     </div>
                 </div>
             </div>
+            <DropdownMenuSeparator/>
+            <DropdownMenuItem asChild className="w-full cursor-pointer text-muted-foreground">
+                <SignOutButton>Sign out</SignOutButton>
+            </DropdownMenuItem>
         </DropdownMenuContent>
     </DropdownMenu>
 };

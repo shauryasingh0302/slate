@@ -1,21 +1,29 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { ChevronsLeft, MenuIcon } from "lucide-react";
+import { ChevronsLeft, MenuIcon, PlusCircle, Search, Settings } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { useMediaQuery } from "usehooks-ts";
 import UserItem from "./UserItem";
+import { useMutation, useQuery } from "convex/react";
+import { api } from "@/convex/_generated/api";
+import { Item } from "./item";
+import { toast } from "sonner";
 
 export const Navigation = () => {
     const pathname = usePathname();
     const isMobile = useMediaQuery("(max-width: 768px)");
+
+    const documents = useQuery(api.documents.get);
 
     const isResizingRef = useRef(false);
     const sidebarRef = useRef<HTMLElement>(null);
     const navbarRef = useRef<HTMLDivElement>(null);
     const [isResetting, setIsResetting] = useState(false);
     const [isCollapsed, setIsCollapsed] = useState(isMobile);
+
+    const create = useMutation(api.documents.create);
 
     useEffect(() => {
         if (isMobile) {
@@ -95,6 +103,15 @@ export const Navigation = () => {
         }
     };
 
+    const handleCreate = () => {
+        const promise = create({ title: "Untitled" });
+        toast.promise(promise, {
+            loading: "Creating a new note...",
+            success: "New note created!",
+            error: "Failed to create a new note.",
+        });
+    };
+
     return (
         <>
             <aside
@@ -116,10 +133,19 @@ export const Navigation = () => {
                     <ChevronsLeft className="h-6 w-6" />
                 </div>
                 <div className="">
-                    <UserItem/>
+                    <UserItem />
+                    <Item label="Search" icon={Search} isSearch onClick={()=>{}} />
+                    <Item label="Settings" icon={Settings} onClick={()=>{}} />
+                    <Item
+                        onClick={handleCreate}
+                        label="New Page"
+                        icon={PlusCircle}
+                    />
                 </div>
                 <div className="mt-4">
-                    <p>Documents</p>
+                    {documents?.map((document) => (
+                        <p key={document._id}>{document.title}</p>
+                    ))}
                 </div>
                 <div
                     onMouseDown={handleMouseDown}

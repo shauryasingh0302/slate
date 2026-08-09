@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { googleSans, geistMono } from "./fonts";
 import "./globals.css";
 import { ConvexClientProvider } from "@/components/providers/convex-provider";
+import { Toaster } from "sonner";
 
 export const metadata: Metadata = {
     title: "The AI workspace that works for you. | Slate",
@@ -18,7 +19,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
             className={`${googleSans.variable} ${geistMono.variable} h-full antialiased`}
         >
             <body className="min-h-full flex flex-col">
-                <ConvexClientProvider>{children}</ConvexClientProvider>
+                <ConvexClientProvider>
+                    <Toaster position="bottom-center" />
+                    {children}
+                </ConvexClientProvider>
             </body>
         </html>
     );
