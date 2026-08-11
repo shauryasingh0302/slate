@@ -31,11 +31,21 @@ export const archive = mutation({
                     q.eq("userId", userId).eq("parentDocument", documentId),
                 )
                 .collect();
+
+            for (const child of children) {
+                await ctx.db.patch(child._id, {
+                    isArchived: true,
+                });
+
+                await recursiveArchive(child._id);
+            }
         };
 
         const document = await ctx.db.patch(args.id, {
             isArchived: true,
         });
+
+        await recursiveArchive(args.id);
 
         return document;
     },
