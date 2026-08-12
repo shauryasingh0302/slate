@@ -21,7 +21,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
             <body className="min-h-full flex flex-col">
                 <ConvexClientProvider>
                     <Toaster position="bottom-center" />
+                    
                     {children}
+
                 </ConvexClientProvider>
             </body>
         </html>

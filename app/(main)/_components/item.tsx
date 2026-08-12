@@ -35,7 +35,7 @@ interface ItemProps {
     level?: number;
     onExpand?: () => void;
     label: string;
-    onClick: () => void;
+    onClick?: () => void;
     icon: LucideIcon;
 }
 
@@ -52,6 +52,20 @@ export const Item = ({
     expanded,
 }: ItemProps) => {
     const create = useMutation(api.documents.create);
+
+    const archive = useMutation(api.documents.archive);
+
+    const onArchive: MouseEventHandler<HTMLDivElement> = (event) => {
+        event.stopPropagation();
+        if (!id) return;
+        const promise = archive({ id });
+
+        toast.promise(promise, {
+            loading: "Moving to trash...",
+            success: "Note moved to trash!",
+            error: "Failed to archive notes.",
+        });
+    };
 
     const router = useRouter();
 
@@ -82,6 +96,7 @@ export const Item = ({
             error: "Failed to create a new note.",
         });
     };
+    
 
     return (
         <div
@@ -137,12 +152,14 @@ export const Item = ({
                             side="right"
                             forceMount
                         >
-                            <DropdownMenuItem>
+                            <DropdownMenuItem onClick={onArchive}>
                                 <Trash className="size-4 mr-2" />
                                 Delete
                             </DropdownMenuItem>
                             <DropdownMenuSeparator />
-                            <div className="text-xs text-muted-foreground p-2">Last edited by: {user?.fullName}</div>
+                            <div className="text-xs text-muted-foreground p-2">
+                                Last edited by: {user?.fullName}
+                            </div>
                         </DropdownMenuContent>
                     </DropdownMenu>
                     <div
