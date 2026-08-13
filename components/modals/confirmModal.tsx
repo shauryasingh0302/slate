@@ -20,7 +20,7 @@ interface confirmModalProps {
 const confirmModal = ({children, onConfirm}: confirmModalProps) => {
     return (
         <AlertDialog>
-            <AlertDialogTrigger onClick={(e)=> e.stopPropagation()} asChild>
+            <AlertDialogTrigger onClick={(e)=> e.stopPropagation()}>
                 {children}
             </AlertDialogTrigger>
             <AlertDialogContent>
