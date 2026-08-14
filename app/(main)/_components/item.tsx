@@ -96,7 +96,6 @@ export const Item = ({
             error: "Failed to create a new note.",
         });
     };
-    
 
     return (
         <div
