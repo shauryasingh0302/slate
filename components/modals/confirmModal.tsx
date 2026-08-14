@@ -17,10 +17,15 @@ interface confirmModalProps {
     onConfirm: () => void;
 }
 
-const confirmModal = ({children, onConfirm}: confirmModalProps) => {
+const confirmModal = ({ children, onConfirm }: confirmModalProps) => {
+    const handleConfirm = (e: React.MouseEvent<HTMLButtonElement>) => {
+        e.stopPropagation();
+        onConfirm();
+    };
+
     return (
         <AlertDialog>
-            <AlertDialogTrigger onClick={(e)=> e.stopPropagation()}>
+            <AlertDialogTrigger onClick={(e) => e.stopPropagation()}>
                 {children}
             </AlertDialogTrigger>
             <AlertDialogContent>
@@ -28,7 +33,18 @@ const confirmModal = ({children, onConfirm}: confirmModalProps) => {
                     <AlertDialogTitle>
                         Are you absolutely sure?
                     </AlertDialogTitle>
+                    <AlertDialogDescription>
+                        This action cannot be undone.
+                    </AlertDialogDescription>
                 </AlertDialogHeader>
+                <AlertDialogFooter>
+                    <AlertDialogCancel onClick={(e) => e.stopPropagation()}>
+                        Cancel
+                    </AlertDialogCancel>
+                    <AlertDialogAction onClick={handleConfirm}>
+                        Confirm
+                    </AlertDialogAction>
+                </AlertDialogFooter>
             </AlertDialogContent>
         </AlertDialog>
     );
