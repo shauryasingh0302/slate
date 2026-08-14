@@ -40,7 +40,7 @@ const DocumentsPage = () => {
             <h2 className="text-lg font-medium">
                 Welcome to {user?.firstName}&apos;s Slate
             </h2>
-            <Button variant={"outline"} size={"icon-lg"} onClick={onCreate} className="cursor-pointer">
+            <Button variant={"ghost"} size={"icon-lg"} onClick={onCreate} className="cursor-pointer !bg-transparent hover:!bg-transparent focus:!bg-transparent active:!bg-transparent">
                 <PlusCircle className="size-4 mr-2" />
                 Create a note
             </Button>
