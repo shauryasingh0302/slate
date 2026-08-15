@@ -16,6 +16,7 @@ import { useMutation } from "convex/react";
 import {
     ChevronDown,
     ChevronRight,
+    FileIcon,
     LucideIcon,
     MoreHorizontal,
     Plus,
@@ -134,6 +135,7 @@ export const Item = ({
                     Icon === PlusCircle && "cursor-pointer",
                     Icon === Settings && "cursor-pointer",
                     Icon === Plus && "cursor-pointer",
+                    Icon === FileIcon && "cursor-pointer",
                 )}
             >
                 {label}
