@@ -150,6 +150,7 @@ export const Navigation = () => {
                     onClick={collapse}  
                 >
                     <ChevronsLeft className="h-6 w-6" />   
+                    
                 </div>
                 <div className="">
                     <UserItem />
