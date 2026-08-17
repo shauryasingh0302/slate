@@ -52,6 +52,7 @@ const Title = ({ initialData }: Props) => {
     return (
         <div className="flex items-center gap-x-1">
             {!!initialData.icon && <p>{initialData.icon}</p>}
+
             {isEditing ? (
                 <Input
                     ref={inputRef}
@@ -60,18 +61,19 @@ const Title = ({ initialData }: Props) => {
                     onChange={onChange}
                     onKeyDown={onKeyDown}
                     value={title}
-                    className="h-7 px-2 focus-visible:ring-transparent"
+                    className="h-7 px-2 text-sm font-normal bg-transparent border-none shadow-none focus-visible:ring-0 focus-visible:ring-offset-0"
                 />
             ) : (
                 <Button
                     onClick={enableInput}
-                    variant={"ghost"}
-                    size={"sm"}
-                    className={"font-normal h-auto p-1"}
+                    variant="ghost"
+                    size="sm"
+                    className="font-normal h-7 px-2 justify-start"
                 >
                     <span className="truncate">{initialData.title}</span>
                 </Button>
             )}
+            
         </div>
     );
 };

@@ -122,13 +122,13 @@ export const Navigation = () => {
         }
     };
 
-    const handleCreate = () => {   
+    const handleCreate = () => {
         const promise = create({ title: "Untitled" });
-        toast.promise(promise, {  
+        toast.promise(promise, {
             loading: "Creating a new note...",
             success: "New note created!",
             error: "Failed to create a new note.",
-        });  
+        });
     };
 
     return (
@@ -139,18 +139,17 @@ export const Navigation = () => {
                     isResetting && "transition-all ease-in-out duration-300",
                     isMobile && "w-0",
                 )}
-                ref={sidebarRef}   
+                ref={sidebarRef}
             >
                 <div
                     role="button"
                     className={cn(
                         "h-6 w-6 text-muted-foreground rounded-sm hover:bg-neutral-300 dark:hover:bg-neutral-600 absolute top-3 right-2 opacity-0 group-hover/sidebar:opacity-100 transition",
-                        isMobile && "opacity-100",  
+                        isMobile && "opacity-100",
                     )}
-                    onClick={collapse}  
+                    onClick={collapse}
                 >
-                    <ChevronsLeft className="h-6 w-6" />   
-                    
+                    <ChevronsLeft className="h-6 w-6" />
                 </div>
                 <div className="">
                     <UserItem />
