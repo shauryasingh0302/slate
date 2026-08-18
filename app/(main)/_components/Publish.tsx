@@ -67,7 +67,7 @@ const Publish = ({ initialData }: PublishProps) => {
             <PopoverTrigger
                 render={
                     <Button size={"sm"} variant={"ghost"}>
-                        Publish
+                        {initialData.isPublished ? "Published" : "Publish"}
                         {initialData.isPublished && (
                             <Globe className="text-sky-500 w-4 h-4 ml-2" />
                         )}
@@ -75,17 +75,19 @@ const Publish = ({ initialData }: PublishProps) => {
                 }
             />
             <PopoverContent
-                className={"w-72"}
+                className="w-72 z-[99999]"
                 align="end"
                 alignOffset={8}
+                side="bottom"
+                sideOffset={8}
             >
                 {initialData.isPublished ? (
                     <div className="space-y-4">
                         <div className="flex items-center gap-x-2">
-                            <Globe className="text-sky-500 animate-pulse h-4 w-4" />
-                            <p className="text-xs font-medium text-sky-500">
+                            <Globe className="text-sky-500 h-3 w-3" />
+                            <span className="text-xs font-medium text-sky-500">
                                 This note is live on web.
-                            </p>
+                            </span>
                         </div>
                         <div className="flex items-center">
                             <input
@@ -93,7 +95,7 @@ const Publish = ({ initialData }: PublishProps) => {
                                 value={url}
                                 disabled
                             />
-                            <Button onClick={onCopy} disabled={copied} className={"h-8 bg-rounded-l-none"}>
+                            <Button onClick={onCopy} disabled={copied} className="h-8 rounded-l-none" variant="secondary">
                                 {copied ? (
                                     <Check className="h-4 w-4" />
                                 ):(
