@@ -18,7 +18,7 @@ export const metadata: Metadata = {
         icon: "/logo.svg",
     },
     openGraph: {
-        title: "The AI workspace that works for you. | Slate",
+        title: "The AI workspace that works for you | Slate",
         description: "The connected workspace where better, faster work happens.",
         url: "https://slate.shauryasingh.dev/",
         siteName: "Slate",
