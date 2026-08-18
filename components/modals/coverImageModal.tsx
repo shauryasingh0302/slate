@@ -5,7 +5,7 @@ import { useCoverImage } from "@/hooks/useCoverImage";
 import { SingleImageDropzone } from "@/components/upload/single-image";
 import { UploaderProvider } from "@/components/upload/uploader-provider";
 import { useEdgeStore } from "@/lib/edgestore";
-import { useMutation, useQuery } from "convex/react";
+import { useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { useParams } from "next/navigation";
 import { Id } from "@/convex/_generated/dataModel";
@@ -14,10 +14,6 @@ export const CoverImageModal = () => {
     const params = useParams();
     const documentId = params.documentId as Id<"documents">;
     const update = useMutation(api.documents.update);
-    const document = useQuery(
-        api.documents.getById,
-        documentId ? { documentId } : "skip",
-    );
     const coverImage = useCoverImage();
     const { edgestore } = useEdgeStore();
 
@@ -37,8 +33,8 @@ export const CoverImageModal = () => {
                             signal,
                             onProgressChange,
                             // Replace the old file in place so it isn't orphaned
-                            options: document?.coverImage
-                                ? { replaceTargetUrl: document.coverImage }
+                            options: coverImage.url
+                                ? { replaceTargetUrl: coverImage.url }
                                 : undefined,
                         })
                     }

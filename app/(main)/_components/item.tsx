@@ -54,13 +54,14 @@ export const Item = ({
     expanded,
 }: ItemProps) => {
     const create = useMutation(api.documents.create);
+    const router = useRouter();
 
     const archive = useMutation(api.documents.archive);
 
     const onArchive: MouseEventHandler<HTMLDivElement> = (event) => {
         event.stopPropagation();
         if (!id) return;
-        const promise = archive({ id });
+        const promise = archive({ id }).then(()=> router.push("/documents"));
 
         toast.promise(promise, {
             loading: "Moving to trash...",
@@ -68,8 +69,6 @@ export const Item = ({
             error: "Failed to archive notes.",
         });
     };
-
-    const router = useRouter();
 
     const { user } = useUser();
 
@@ -88,7 +87,7 @@ export const Item = ({
                 if (!expanded) {
                     onExpand?.();
                 }
-                // router.push(`/documents/${documentId}`);
+                router.push(`/documents/${documentId}`);
             },
         );
 
@@ -124,7 +123,7 @@ export const Item = ({
             ) : (
                 <Icon
                     onClick={onClick}
-                    className="shrink-0 h-[18px] mr-2 text-muted-foreground"
+                    className="shrink-0 h-[18px] w-[18px] mr-2 text-muted-foreground"
                 />
             )}
 
