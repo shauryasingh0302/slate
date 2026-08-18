@@ -8,7 +8,7 @@ import { ThemeProvider } from "@/components/providers/theme-provider";
 import { EdgeStoreProvider } from "@/lib/edgestore";
 
 export const metadata: Metadata = {
-    title: "The AI workspace that works for you. | Slate",
+    title: "The AI workspace that works for you | Slate",
     description: "The connected workspace where better, faster work happens.",
     metadataBase: new URL("https://slate.shauryasingh.dev"),
     alternates: {
@@ -24,9 +24,9 @@ export const metadata: Metadata = {
         siteName: "Slate",
         images: [
             {
-                url: "/logo.svg",
-                width: 800,
-                height: 600,
+                url: "/og-image.png",
+                width: 1200,
+                height: 630,
                 alt: "Slate - The connected workspace",
             },
         ],
@@ -35,9 +35,9 @@ export const metadata: Metadata = {
     },
     twitter: {
         card: "summary_large_image",
-        title: "The AI workspace that works for you. | Slate",
+        title: "The AI workspace that works for you | Slate",
         description: "The connected workspace where better, faster work happens.",
-        images: ["/logo.svg"],
+        images: ["/og-image.png"],
     },
 };
 
